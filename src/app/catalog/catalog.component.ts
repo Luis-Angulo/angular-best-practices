@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { DataRepositoryService } from '../services/data-repository.service';
+import { Component, OnInit } from '@angular/core';
+import { UserRepositoryService } from '../users/user-repository.service';
+import { CatalogRepositoryService } from './catalog-repository.service';
 
 // naming a component should follow the .component naming convention for the file
 
@@ -7,14 +8,14 @@ import { DataRepositoryService } from '../services/data-repository.service';
   styleUrls: ['./catalog.component.css'],
   templateUrl: './catalog.component.html',
 })
-export class CatalogComponent {
+export class CatalogComponent implements OnInit {
   classes: any[];
   visibleClasses: any[];
 
-  constructor(private dataRepository: DataRepositoryService) {}
+  constructor(private userRepository: UserRepositoryService, private catalogRepository: CatalogRepositoryService) {}
 
   ngOnInit() {
-    this.dataRepository.getCatalog().subscribe((classes) => {
+    this.catalogRepository.getCatalog().subscribe((classes) => {
       this.classes = classes;
       this.applyFilter('');
     });
@@ -22,7 +23,7 @@ export class CatalogComponent {
 
   enroll(classToEnroll) {
     classToEnroll.processing = true;
-    this.dataRepository.enroll(classToEnroll.classId).subscribe(
+    this.userRepository.enroll(classToEnroll.classId).subscribe(
       null,
       (err) => {
         console.error(err);
@@ -37,7 +38,7 @@ export class CatalogComponent {
 
   drop(classToDrop) {
     classToDrop.processing = true;
-    this.dataRepository.drop(classToDrop.classId).subscribe(
+    this.userRepository.drop(classToDrop.classId).subscribe(
       null,
       (err) => {
         console.error(err);
@@ -51,8 +52,9 @@ export class CatalogComponent {
   }
 
   applyFilter(filter) {
-    if (!filter) return (this.visibleClasses = this.classes);
-
+    if (!filter) {
+      return (this.visibleClasses = this.classes)
+    };
     if (filter === 'GEN') {
       return (this.visibleClasses = this.classes.filter(
         (c) =>
@@ -61,7 +63,6 @@ export class CatalogComponent {
           !c.course.courseNumber.startsWith('SP')
       ));
     }
-
     return (this.visibleClasses = this.classes.filter((c) =>
       c.course.courseNumber.startsWith(filter)
     ));
