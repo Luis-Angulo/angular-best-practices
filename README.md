@@ -1,6 +1,7 @@
 # Whitebeards
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.1.1.
+(Original project by JM Cooper)
 
 ## Development server
 
