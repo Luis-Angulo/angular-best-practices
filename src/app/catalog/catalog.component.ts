@@ -4,8 +4,8 @@ import { DataRepositoryService } from '../services/data-repository.service';
 // naming a component should follow the .component naming convention for the file
 
 @Component({
-  styleUrls: ['../styles/catalog.component.css'],
-  templateUrl: '../templates/catalog.component.html',
+  styleUrls: ['./catalog.component.css'],
+  templateUrl: './catalog.component.html',
 })
 export class CatalogComponent {
   classes: any[];
