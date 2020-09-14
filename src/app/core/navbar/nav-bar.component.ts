@@ -3,7 +3,7 @@ import { Component } from "@angular/core";
 import { UserRepositoryService } from "../user-repository.service";
 
 @Component({
-  selector: "nav-bar",
+  selector: "core-navbar",
   templateUrl: "nav-bar.component.html",
   styleUrls: ["./nav-bar.component.css"],
 })

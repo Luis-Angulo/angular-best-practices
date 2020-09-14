@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
   ],
   template: `
     <div class="app">
-      <nav-bar></nav-bar>
+      <core-navbar></core-navbar>
       <div class="main">
         <router-outlet></router-outlet>
       </div>
