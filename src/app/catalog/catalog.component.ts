@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UserRepositoryService } from "../users/user-repository.service";
+import { UserRepositoryService } from "../core/user-repository.service";
 import { CatalogRepositoryService } from "./catalog-repository.service";
 
 // naming a component should follow the .component naming convention for the file

@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 
-import { UserRepositoryService } from './user-repository.service';
+import { UserRepositoryService } from "../core/user-repository.service";
 
 @Component({
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css'],
+  templateUrl: "./sign-in.component.html",
+  styleUrls: ["./sign-in.component.css"],
 })
 export class SignInComponent {
   credentials: any = {};
@@ -19,13 +19,13 @@ export class SignInComponent {
     this.dataRepository.signIn(credentials).subscribe(
       null,
       (err) => {
-        console.error(err, 'Error');
+        console.error(err, "Error");
       },
-      () => this.router.navigate(['/catalog'])
+      () => this.router.navigate(["/catalog"])
     );
   }
 
   cancel() {
-    this.router.navigate(['/']);
+    this.router.navigate(["/"]);
   }
 }

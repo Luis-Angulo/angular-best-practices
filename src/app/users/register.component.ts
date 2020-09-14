@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UserRepositoryService } from 'app/users/user-repository.service';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { UserRepositoryService } from "app/core/user-repository.service";
 
 @Component({
-  styleUrls: ['./register.component.css'],
-  templateUrl: './register.component.html',
+  styleUrls: ["./register.component.css"],
+  templateUrl: "./register.component.html",
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
@@ -21,10 +21,10 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.firstName = new FormControl('', Validators.required);
-    this.lastName = new FormControl('', Validators.required);
-    this.email = new FormControl('', Validators.required);
-    this.password = new FormControl('', Validators.required);
+    this.firstName = new FormControl("", Validators.required);
+    this.lastName = new FormControl("", Validators.required);
+    this.email = new FormControl("", Validators.required);
+    this.password = new FormControl("", Validators.required);
 
     this.registerForm = new FormGroup({
       firstName: this.firstName,
@@ -39,11 +39,11 @@ export class RegisterComponent implements OnInit {
     this.userRepository.saveUser(user).subscribe(
       null,
       () => (this.saving = false),
-      () => this.router.navigate(['/catalog'])
+      () => this.router.navigate(["/catalog"])
     );
   }
 
   cancel() {
-    this.router.navigate(['/']);
+    this.router.navigate(["/"]);
   }
 }
