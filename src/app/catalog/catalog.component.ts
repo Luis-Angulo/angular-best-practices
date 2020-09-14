@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UserRepositoryService } from "../core/user-repository.service";
 import { CatalogRepositoryService } from "./catalog-repository.service";
+import { FilterClassesService } from "./filter-classes.service";
 
 // naming a component should follow the .component naming convention for the file
 
@@ -14,7 +15,9 @@ export class CatalogComponent implements OnInit {
 
   constructor(
     private userRepository: UserRepositoryService,
-    private catalogRepository: CatalogRepositoryService
+    private catalogRepository: CatalogRepositoryService,
+    // Get the filter logic out to test and reuse easier
+    private filterService: FilterClassesService
   ) {}
 
   ngOnInit() {
@@ -55,21 +58,6 @@ export class CatalogComponent implements OnInit {
   }
 
   applyFilter(filter) {
-    if (!filter) {
-      return (this.visibleClasses = this.classes);
-    }
-    if (filter === "GEN") {
-      return this.showOnlyGeneralCourses();
-    }
-    return (this.visibleClasses = this.classes.filter((c) =>
-      c.course.courseNumber.startsWith(filter)
-    ));
-  }
-
-  showOnlyGeneralCourses() {
-    this.visibleClasses = this.classes.filter((c) => {
-      const cn = c.course.courseNumber;
-      return !cn.startsWith("CH") && !cn.startsWith("PO") && !cn.startsWith("SP");
-    });
+    this.visibleClasses = this.filterService.applyFilter(filter, this.classes);
   }
 }
