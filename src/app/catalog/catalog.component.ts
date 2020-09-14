@@ -1,23 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { UserRepositoryService } from '../users/user-repository.service';
-import { CatalogRepositoryService } from './catalog-repository.service';
+import { Component, OnInit } from "@angular/core";
+import { UserRepositoryService } from "../users/user-repository.service";
+import { CatalogRepositoryService } from "./catalog-repository.service";
 
 // naming a component should follow the .component naming convention for the file
 
 @Component({
-  styleUrls: ['./catalog.component.css'],
-  templateUrl: './catalog.component.html',
+  styleUrls: ["./catalog.component.css"],
+  templateUrl: "./catalog.component.html",
 })
 export class CatalogComponent implements OnInit {
   classes: any[];
   visibleClasses: any[];
 
-  constructor(private userRepository: UserRepositoryService, private catalogRepository: CatalogRepositoryService) {}
+  constructor(
+    private userRepository: UserRepositoryService,
+    private catalogRepository: CatalogRepositoryService
+  ) {}
 
   ngOnInit() {
     this.catalogRepository.getCatalog().subscribe((classes) => {
       this.classes = classes;
-      this.applyFilter('');
+      this.applyFilter("");
     });
   }
 
@@ -53,18 +56,20 @@ export class CatalogComponent implements OnInit {
 
   applyFilter(filter) {
     if (!filter) {
-      return (this.visibleClasses = this.classes)
-    };
-    if (filter === 'GEN') {
-      return (this.visibleClasses = this.classes.filter(
-        (c) =>
-          !c.course.courseNumber.startsWith('CH') &&
-          !c.course.courseNumber.startsWith('PO') &&
-          !c.course.courseNumber.startsWith('SP')
-      ));
+      return (this.visibleClasses = this.classes);
+    }
+    if (filter === "GEN") {
+      return this.showOnlyGeneralCourses();
     }
     return (this.visibleClasses = this.classes.filter((c) =>
       c.course.courseNumber.startsWith(filter)
     ));
+  }
+
+  showOnlyGeneralCourses() {
+    this.visibleClasses = this.classes.filter((c) => {
+      const cn = c.course.courseNumber;
+      return !cn.startsWith("CH") && !cn.startsWith("PO") && !cn.startsWith("SP");
+    });
   }
 }
