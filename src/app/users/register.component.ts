@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataRepositoryService } from 'app/services/data-repository.service';
+import { UserRepositoryService } from 'app/users/user-repository.service';
 
 @Component({
   styleUrls: ['./register.component.css'],
   templateUrl: './register.component.html',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   firstName: FormControl;
   lastName: FormControl;
@@ -17,7 +17,7 @@ export class RegisterComponent {
 
   constructor(
     private router: Router,
-    private dataRepository: DataRepositoryService
+    private userRepository: UserRepositoryService
   ) {}
 
   ngOnInit() {
@@ -36,7 +36,7 @@ export class RegisterComponent {
 
   registerUser(user) {
     this.saving = true;
-    this.dataRepository.saveUser(user).subscribe(
+    this.userRepository.saveUser(user).subscribe(
       null,
       () => (this.saving = false),
       () => this.router.navigate(['/catalog'])

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { DataRepositoryService } from '../services/data-repository.service';
+import { UserRepositoryService } from './user-repository.service';
 
 @Component({
   templateUrl: './sign-in.component.html',
@@ -12,7 +12,7 @@ export class SignInComponent {
 
   constructor(
     private router: Router,
-    private dataRepository: DataRepositoryService
+    private dataRepository: UserRepositoryService
   ) {}
 
   signIn(credentials: any) {
