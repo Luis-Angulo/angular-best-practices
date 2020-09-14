@@ -34,16 +34,22 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  // methods called by the template must remain public
   registerUser(user) {
     this.saving = true;
+    this.saveAndRedirect(user);
+  }
+
+  cancel() {
+    this.router.navigate(["/"]);
+  }
+
+  // private methods should go last in a class
+  private saveAndRedirect(user) {
     this.userRepository.saveUser(user).subscribe(
       null,
       () => (this.saving = false),
       () => this.router.navigate(["/catalog"])
     );
-  }
-
-  cancel() {
-    this.router.navigate(["/"]);
   }
 }
