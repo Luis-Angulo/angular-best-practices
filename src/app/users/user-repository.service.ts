@@ -10,28 +10,32 @@ export class UserRepositoryService {
 
   saveUser(user): Observable<any> {
     user.classes = user.classes || [];
-    this.currentUser = user;
+    this.currentUser = { ...user };
     return Observable.empty().delay(1000);
   }
 
   enroll(classId): Observable<any> {
     if (!this.currentUser) {
-      return Observable.throw('User not signed in')
-    };
+      return Observable.throw('User not signed in');
+    }
     if (this.currentUser.classes.includes[classId]) {
-      return Observable.throw('Already enrolled')
-    };
-    this.currentUser.classes.push(classId);
+      return Observable.throw('Already enrolled');
+    }
+    // this.currentUser.classes.push(classId);  // BAD, do not mutate state
+    this.currentUser = {
+      ...this.currentUser,
+      classes: [...this.currentUser.classes, classId],
+    }; // immutable, new object
     return Observable.empty().delay(1000);
   }
 
   drop(classId): Observable<any> {
     if (!this.currentUser) {
-      return Observable.throw('User not signed in')
-    };
+      return Observable.throw('User not signed in');
+    }
     if (!this.currentUser.classes.includes(classId)) {
-      return Observable.throw('Not enrolled')
-    };
+      return Observable.throw('Not enrolled');
+    }
     this.currentUser.classes = this.currentUser.classes.filter(
       (c) => c.classId !== classId
     );
@@ -39,7 +43,10 @@ export class UserRepositoryService {
   }
 
   signIn(credentials): Observable<any> {
-    if (credentials.email !== 'me@whitebeards.edu' || credentials.password !== 'super-secret') {
+    if (
+      credentials.email !== 'me@whitebeards.edu' ||
+      credentials.password !== 'super-secret'
+    ) {
       return Observable.throw('Invalid login');
     }
     this.currentUser = {
@@ -53,7 +60,7 @@ export class UserRepositoryService {
   }
 }
 
-const USERS = [
+const users = [
   {
     userId: 'e61aebed-dbc5-437a-b514-02b8380d8efc',
     firstName: 'Jim',
