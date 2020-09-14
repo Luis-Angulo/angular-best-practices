@@ -5,6 +5,9 @@ import { NavBarComponent } from "./navbar/nav-bar.component";
 import { UserRepositoryService } from "./user-repository.service";
 import { RouterModule } from "@angular/router";
 
+// Core module should implement all cross-cutting concerns for an app, such as
+// custom error handlers, auth interceptors, logging services, and wrappers around
+// core angular libraries. CoreModule should only be imported into the root appModule
 @NgModule({
   imports: [CommonModule, RouterModule],
   declarations: [AccountMenuComponent, NavBarComponent],
