@@ -8,6 +8,6 @@ import { LoadingSpinnerComponent } from "./loading-spinner.component";
 @NgModule({
   imports: [CommonModule],
   declarations: [LoadingSpinnerComponent],
-  exports: [LoadingSpinnerComponent],
+  exports: [LoadingSpinnerComponent, CommonModule],
 })
 export class SharedModule {}
