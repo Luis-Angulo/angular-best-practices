@@ -1,7 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs/Rx";
+// import { Observable, Subject } from "rxjs/Rx"; bad performance, the whole lib loads before destructuring
 import "rxjs/add/operator/map";
 import { UserRepositoryService } from "app/core/user-repository.service";
+// This results in a slimmer final bundle
+import { Observable } from "rxjs/Observable";
+import { Subject } from "rxjs/Subject";
 
 @Injectable()
 export class CatalogRepositoryService {
